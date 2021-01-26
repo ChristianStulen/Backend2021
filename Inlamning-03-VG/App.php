@@ -1,38 +1,36 @@
 <?php
 class App{
-    
+    //Endpoint and a standard value of the amount of products to be shown.
     public static $endpoint ="http://localhost/Inlamning-03-VG/Api/index.php";
     public static $nrShow = 10;
+
+    //Main, if wrong input is entered the page gets redirected to error screen.
     public static function main()
-    {        
-        try {
-            $nrShow=$_GET['show'] ?? self::$nrShow;
+    {      
+        $nrShow=$_GET['show'] ?? self::$nrShow;  
+        try {            
             if (!in_array($nrShow, range(1,10))) 
             header("Location: http://localhost/Inlamning-03-VG/Api/index.php?show=$nrShow");
             elseif(!preg_match_all("/^[1-9][0-9]*$/", $nrShow))
             header("Location: http://localhost/Inlamning-03-VG/Api/index.php?show=$nrShow");
             else{
-                 $array = self::getData();
+                $array = self::getData();
                 self::allProducts($array);
-            }  
+            } 
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
-
+    //Get data and throws if there is not access.
     public static function getData()
     {
         $nrShow=$_GET['show'] ?? self::$nrShow;
-        
-
         $json = file_get_contents(self::$endpoint."?show=$nrShow");
         if (!$json)
             throw new Exception("Cannot access ".self::$endpoint);
-        
-        
         return json_decode($json, true);
     }
-        
+    //Echos out the products in a nice format.
     public static function allProducts($array)
     {
         
