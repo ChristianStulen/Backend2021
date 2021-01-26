@@ -7,14 +7,14 @@ class App{
     {        
         try {
             $nrShow=$_GET['show'] ?? self::$nrShow;
-            if (!preg_match_all("/^[1-9][0-9]*$/", $nrShow))
-                header("Location: http://localhost/Inlamning-03-VG/Api/index.php?show=$nrShow");
+            if (!in_array($nrShow, range(1,10))) 
+            header("Location: http://localhost/Inlamning-03-VG/Api/index.php?show=$nrShow");
+            elseif(!preg_match_all("/^[1-9][0-9]*$/", $nrShow))
+            header("Location: http://localhost/Inlamning-03-VG/Api/index.php?show=$nrShow");
             else{
                  $array = self::getData();
                 self::allProducts($array);
-            }
-               
-            
+            }  
         } catch (Exception $e) {
             echo $e->getMessage();
         }
