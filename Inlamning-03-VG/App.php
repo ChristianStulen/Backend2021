@@ -42,7 +42,7 @@ class App{
                 $title = $value['title'];
                 $price = $value['price'];
                 $description = $value['description'];
-                $stock = "Current stock ".rand(0,50);
+                $stock = $value['stock'];
     
                 $result .= "
                 <div class='col-lg-4 col-md-6 mb-4'>
@@ -52,9 +52,9 @@ class App{
                             <h4 class='card-title'>
                                 <a>$title</a>
                             </h4>
-                            <h5>$$price</h5>
+                            <h5>$$price kr</h5>
                             <p class='card-text'>$description</p>
-                            <h5>$stock</h5>
+                            <h5>Antal i lager: $stock</h5>
                         </div>
                     </div>
                 </div>";                       
